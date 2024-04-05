@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: log-ingester
+  kafka:
+    listener:
+      ack-mode: manual
+      concurrency: 1
+    consumer:
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: "log-ingester-3"
+      auto-offset-reset: earliest
+    producer:
+      bootstrap-servers: "localhost:9092"
+      retries: 3
+      batch-size: "16384"
+    bootstrap-servers: localhost:9092
+
+logging:
+  include-application-name: on
+
+kafka:
+  topic: "cdc-events-topic-6"
+
+
+opensearch:
+  host: localhost
+  port: 9200
+  scheme: http
+  connect-timeout: 5000
+  socket-timeout: 60000
+
+jest:
+  elasticsearch:
+    shards: 1
+    replicas: 0
